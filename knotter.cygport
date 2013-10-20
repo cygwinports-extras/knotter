@@ -1,0 +1,22 @@
+inherit qt4-qmake
+
+NAME="knotter"
+VERSION=0.9.5
+RELEASE=1
+CATEGORY="Graphics"
+SUMMARY="Interlace designer"
+DESCRIPTION="Interlace patterns are a kind of design historically used as a
+decorations in many places and by different cultures. Knotter aims to allow
+its user to intuitively design such patterns and to provide easy ways to
+integrate the result in external general-purpose graphic software."
+HOMEPAGE="http://knotter.mattbas.org/Knotter"
+SRC_URI="mirror://sourceforge/knotter/${NAME}-${VERSION}.tar.gz"
+PATCH_URI="0.9.5-debuginfo.patch"
+
+src_compile() {
+	cd ${B}
+	lndirs
+	QMAKE=${QT4_QMAKE} CXX=${CXX} CXXFLAG="${CXXFLAGS}" STRIP=: \
+	./configure.sh --prefix=/usr
+	cygmake
+}

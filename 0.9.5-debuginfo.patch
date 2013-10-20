@@ -1,0 +1,24 @@
+--- origsrc/knotter-0.9.5/configure.sh	2013-10-18 13:04:43.000000000 -0500
++++ src/knotter-0.9.5/configure.sh	2013-10-20 14:34:20.311626900 -0500
+@@ -316,6 +316,12 @@ then
+     echo "Extra library path: $LIBDIR"
+ fi
+ 
++if [ -n "$STRIP" ]
++then
++    qmake_opts="$qmake_opts QMAKE_STRIP=$STRIP"
++fi
++
++
+ 
+ #clean old make output
+ if [ -f Makefile ]
+@@ -325,7 +331,7 @@ then
+ fi
+ 
+ qmake_opts="$qmake_opts BINDIR=$bindir DATADIR=$datadir DOCDIR=$docdir \
+-            MANDIR=$mandir DATAROOTDIR=$datarootdir"
++            MANDIR=$mandir DATAROOTDIR=$datarootdir CONFIG+=no_fixpath"
+ qmake_command="$QMAKE $qmake_opts $qmake_pro_file"
+ echo $qmake_command
+ if $qmake_command && [ -f Makefile ]
